@@ -127,15 +127,16 @@
 		 * @private
 		 */
 		function _removeHook( type, hook, callback, context ) {
-			if ( !STORAGE[ type ][ hook ] ) {
+			if ( ! (hook in STORAGE[ type ]) ) {
 				return;
 			}
-			if ( !callback ) {
+			
+			if ( typeof callback !== 'function' ) {
 				STORAGE[ type ][ hook ] = [];
 			} else {
 				var handlers = STORAGE[ type ][ hook ];
 				var i;
-				if ( !context ) {
+				if ( !context ) { // TODO: check that context is an object(not null, not array)
 					for ( i = handlers.length; i--; ) {
 						if ( handlers[i].callback === callback ) {
 							handlers.splice( i, 1 );
