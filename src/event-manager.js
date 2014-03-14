@@ -130,8 +130,9 @@
 			if ( !STORAGE[ type ][ hook ] ) {
 				return;
 			}
+			
 			if ( !callback ) {
-				STORAGE[ type ][ hook ] = [];
+				delete STORAGE[ type ][ hook ];
 			} else {
 				var handlers = STORAGE[ type ][ hook ];
 				var i;
@@ -149,6 +150,10 @@
 							handlers.splice( i, 1 );
 						}
 					}
+				}
+				
+				if ( handlers.length === 0 ) {
+					delete STORAGE[ type ][ hook ];
 				}
 			}
 		}
